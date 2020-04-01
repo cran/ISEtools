@@ -1,7 +1,7 @@
 Package: ISEtools
 Type: Package
 Title: Tools for Ion Selective Electrodes
-Version: 3.1.1
+Version: 3.1.1.1
 Date: 2018-12-31
 Authors@R: c(person("Peter", "Dillingham", role = c("aut", "cre"),
     email = "peter.dillingham@otago.ac.nz"),
@@ -30,6 +30,6 @@ License: GPL-2
 URL: http://www.maths.otago.ac.nz/~dillingh/software.html
 RoxygenNote: 6.0.0
 NeedsCompilation: no
-Packaged: 2019-01-03 08:26:37 UTC; dillingh
+Packaged: 2020-03-30 11:46:23 UTC; hornik
 Repository: CRAN
-Date/Publication: 2019-01-08 17:40:08 UTC
+Date/Publication: 2020-04-01 05:38:09 UTC

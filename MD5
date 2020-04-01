@@ -1,4 +1,4 @@
-0459955957d83240e2dc8c5d8ecfab4e *DESCRIPTION
+b9f6c24a1008de69522ef59bef7f31fb *DESCRIPTION
 1c650c0d10d9c39795cf40904bac5a8d *NAMESPACE
 dc0b10dabf92db8944a0cf336c213734 *R/ISEdata.calibration.R
 bb27dd36bc6d06065e390e8c81c80cf4 *R/analyseISE.R
@@ -15,11 +15,11 @@ cca85893450789e06b634c3d7976806d *R/print.analyseISE.R
 42e2fcbdc2464c65a1c48d704caf3b2f *R/summary.ISEdata.R
 d1a1f1038d317a333347fe8371265229 *R/summary.ISEdescription.R
 5f9c662a1fc438402f4dd4b18709a9b5 *R/summary.analyseISE.R
-97b5e5f792b9beabc905c9eb176bbf0c *build/vignette.rds
-71be2e6e76103150a6327962782d2be4 *data/LeadStdAdd.rda
-d82b41b61e4112d0f47779a90edc9549 *data/carbonate.rda
+e03ba1a8ee39d0a82e66c49e3f602327 *build/vignette.rds
+60f7cb7fef6591be164ad44aa07d2d11 *data/LeadStdAdd.rda
+fbe96ef50cfa5e4e60bf656700cdd223 *data/carbonate.rda
 a7ec04463b3b693cb9c8de02c89f509a *inst/CITATION
-eed6c45d8dcc1f410d8c0c6c87ce00f0 *inst/doc/ISEtools.pdf
+7ac14a50069fb43174348a2b5085fa95 *inst/doc/ISEtools.pdf
 6e188af52c53f022005a63904c95692f *inst/doc/ISEtools.pdf.asis
 2a0f19d322c8e38756b2c8a09a3a235e *inst/extdata/Lead_calibration.txt
 1772dedcc7511067697fda0c3d5254d8 *inst/extdata/Lead_experimentalBasic.txt
