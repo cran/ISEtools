@@ -1,5 +1,5 @@
 gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, offset = 1,
-	logc.limits = c(-8.9, -1.9), sigma.upper = NA, stdadd = F, calibration.only=F) {
+	logc.limits = c(-8.9, -1.9), sigma.upper = NA, stdadd = FALSE, calibration.only=FALSE) {
 ###
 # Similar to gen.inits.single, but for multiple ISEs
 # If initial values are specified, the should be vectors with length equal to the number of ISEs
@@ -17,10 +17,10 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 	for (i in 1:data$R) {
 		
 		x <- 10^data$log10x[data$ISEID==i]
-		order.x = order(x) 			#new
-		x = sort(x)  #new
+		order.x = order(x) 
+		x = sort(x)  
 		log10x = log10(x)
-		emf <- data$emf[data$ISEID==i][order.x] #new
+		emf <- data$emf[data$ISEID==i][order.x] 
 
 		# Assignments
 		n = length(x)
@@ -60,7 +60,7 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 	# Values with ISEs below S/N=3 are set to E(ISE|x=0) + 3*sigma
 	x.exp = rep(NA, data$M)
 
-	if (stdadd != T) {
+	if (stdadd != TRUE) {
 		for (i in 1:data$M) {
 			emf.tmp <- data$emf.exp[data$xID.exp==i]
 			ISEID.tmp <- data$ISEID.exp[data$xID.exp==i]
@@ -74,7 +74,7 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 		}
 	}
 
-	if (stdadd == T) {
+	if (stdadd == TRUE) {
 		for (i in 1:data$M) {
 			delta.emf.tmp = data$delta.emf[data$xID.exp==i]
 			ISEID.tmp <- data$ISEID.exp[data$xID.exp==i]

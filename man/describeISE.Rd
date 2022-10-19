@@ -13,9 +13,9 @@
 describeISE(data, model.path=NA, model.name = NA, Z=NA, temperature = 21, 
 	burnin=25000, iters = 50000, chains=4, thin = 1,
 	a.init= NA, b.init=NA, cstar.init=NA, 
-	logc.limits = c(-8.9, -1.9), sigma.upper = 5, diagnostic.print=F, offset = 1, 
+	logc.limits = c(-8.9, -1.9), sigma.upper = 5, diagnostic.print=FALSE, offset = 1, 
 	alpha = 0.05, beta = 0.05, SN = NA, 
-	keep.coda=T, coda.n=1000, program="OpenBUGS")
+	keep.coda=TRUE, coda.n=1000, program="OpenBUGS")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -62,7 +62,7 @@ describeISE(data, model.path=NA, model.name = NA, Z=NA, temperature = 21,
 	Upper limit for initial value of sigma
 }
   \item{diagnostic.print}{
-	logical flag indicating whether a diagnostic printout is desired (default is F) 
+	logical flag indicating whether a diagnostic printout is desired (default is FALSE) 
 }
   \item{offset}{
 	The initial value for the slope is based on the last data point as sorted by concentration (i.e. the Nth point) and the (N - offset) data point.  The default is offset = 1, corresponding to the last and second to last data points.
@@ -77,7 +77,7 @@ describeISE(data, model.path=NA, model.name = NA, Z=NA, temperature = 21,
 	Desired signal-to-noise ratio for LOD(S/N) calculations (default is to calculate the S/N equivalent based on alpha, beta)
 }
   \item{keep.coda}{
-	Logical flag indicating whether the MCMC simulations should be returned (keep.coda = T) or not (keep.coda = F) 
+	Logical flag indicating whether the MCMC simulations should be returned (keep.coda = TRUE) or not (keep.coda = FALSE) 
 }
   \item{coda.n}{
 	Indicates how many simulations to return (sampled with replacement).  If coda.n >= the total, all are returned.
@@ -111,6 +111,10 @@ If keep.coda = TRUE, then these additional items are returned:\cr
 Dillingham, P.W., Radu, T., Diamond, D., Radu, A. and McGraw, C.M. (2012). Bayesian Methods for Ion Selective Electrodes. \emph{Electroanalysis}, \strong{24}, 316-324.
 
 Dillingham, P.W., Alsaedi, B.S.O. and McGraw, C.M. (2017). Characterising uncertainty in instrumental limits of detection when sensor response is non-linear. \emph{2017 IEEE SENSORS}, Glasgow, United Kingdom, pp. 1-3. <doi:10.1109/ICSENS.2017.8233898>
+
+Dillingham, P.W., Alsaedi, B.S.O., Radu, A., and McGraw, C.M. (2019). Semi-automated data analysis for ion-selective electrodes and arrays using the R package ISEtools. \emph{Sensors} \strong{19}(20), 4544. <doi: 10.3390/s19204544>
+
+Dillingham, P.W., Alsaedi, B.S.O., Granados-Focil, S., Radu, A., and McGraw, C.M. (2020). Establishing meaningful Limits of Detection for ion-selective electrodes and other nonlinear sensors \emph{ACS Sensors}, \strong{5}, 250-257. <doi:10.1021/acssensors.9b02133>
 }
 \author{
 Peter Dillingham, \email{peter.dillingham@otago.ac.nz}

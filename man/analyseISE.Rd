@@ -10,7 +10,7 @@
 analyseISE(data, model.path=NA, model.name=NA, Z=NA, temperature = 21,
 	burnin=25000, iters = 50000, chains=4, thin = 1,
 	a.init= NA, b.init=NA, cstar.init=NA, logc.limits = c(-8.9, -1.9), 
-	sigma.upper = 5, diagnostic.print=F, offset = 1,
+	sigma.upper = 5, diagnostic.print=FALSE, offset = 1,
 	alpha = 0.05, beta = 0.05, SN = NA, program="OpenBUGS")
 }
 \arguments{
@@ -95,6 +95,10 @@ analyseISE returns a list of class 'analyseISE'.  Individual components include:
 Dillingham, P.W., Radu, T., Diamond, D., Radu, A. and McGraw, C.M. (2012). Bayesian Methods for Ion Selective Electrodes. \emph{Electroanalysis}, \strong{24}, 316-324. <doi:10.1002/elan.201100510>
 
 Dillingham, P.W., Alsaedi, B.S.O. and McGraw, C.M. (2017). Characterising uncertainty in instrumental limits of detection when sensor response is non-linear. \emph{2017 IEEE SENSORS}, Glasgow, United Kingdom, pp. 1-3. <doi:10.1109/ICSENS.2017.8233898>
+
+Dillingham, P.W., Alsaedi, B.S.O., Radu, A., and McGraw, C.M. (2019). Semi-automated data analysis for ion-selective electrodes and arrays using the R package ISEtools. \emph{Sensors} \strong{19}(20), 4544. <doi: 10.3390/s19204544>
+
+Dillingham, P.W., Alsaedi, B.S.O., Granados-Focil, S., Radu, A., and McGraw, C.M. (2020). Establishing meaningful Limits of Detection for ion-selective electrodes and other nonlinear sensors \emph{ACS Sensors}, \strong{5}, 250-257. <doi:10.1021/acssensors.9b02133>
 }
 \author{
 Peter Dillingham, \email{peter.dillingham@otago.ac.nz}

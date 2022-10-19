@@ -1,4 +1,3 @@
-#' @import R2WinBUGS graphics coda boot
 #' @title Basic plot of ion selective electrode calibration data
 #' @description Plots raw ISE calibration data; data should follow a hockey stick pattern coinciding with the equation y = a + b log(x + c) + error, where error follows a normal distribution with mean 0 and standard deviation sigma.
 #' @param x ISE calibration data
@@ -15,8 +14,7 @@ plot.ISEdata = function(x, xlab=expression(paste(log[10], " { ", italic(x), " }"
 ###
 # plot ISE calibration data (should follow hockey-stick model
 ###
-	# Plot the calibration data, four ISEs at a time
-	par(mfrow=c(2,2))
+	# Plot the calibration data
 	ISEID = x$data.calib$ISEID
 	for (i in 1:x$R) {
 		main=paste("ISE #", i, sep="")

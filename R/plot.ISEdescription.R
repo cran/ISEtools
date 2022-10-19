@@ -23,6 +23,11 @@ plot.ISEdescription = function(x, breaks=20, ...) {
 			ISE.LOD.label = bquote("log LOD"[paste("S/N=",.(ISEdescription$LOD.info$SN))])
 		}
 		R = length(ISEdescription$ahat)
+		
+		# Plot parameter estimates, one plot per ISE
+		# Return mfrow values on exit
+		oldpar <- par(no.readonly = TRUE) 
+		on.exit(par(oldpar))
 		par(mfrow=c(3,2))
 
 		if (R == 1) {

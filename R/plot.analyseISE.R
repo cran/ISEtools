@@ -46,11 +46,6 @@ plot.analyseISE  = function(x, xlab = "Sample ID", ylab = expression(paste(log[1
 ###
 	ISEanalysis = x
 
-	### Plot calibrated samples
-#	par(mfrow=c(2,2))
-#	par(mar=c(4,4.0,1,0)+0.1)
-#	par(mgp=c(2, 0.5, 0), tcl = -0.2)
-
 	M = max(ISEanalysis$SampleID)
 	delta = 0.015*M
 	S.low = ISEanalysis$SampleID - delta + x.shift

@@ -132,10 +132,10 @@ function(filename.calibration, filename.experimental = NA) {
 # 	conc.add: concentration of the addition (mol/l)
 ###
 
-   # calibration.only: a T/F flag indicating whether there is only a calibration file (calibration.only=T)
+   # calibration.only: a TRUE/FALSE flag indicating whether there is only a calibration file (calibration.only=TRUE)
    #    or whether there is also a file with experimental sample data (calibration.only=F)
-   calibration.only = F
-   if (is.na(filename.experimental)) { calibration.only = T }
+   calibration.only = FALSE
+   if (is.na(filename.experimental)) { calibration.only = TRUE }
 
    if (!calibration.only) {
 	# Load the experimental and calibration files
@@ -161,26 +161,26 @@ function(filename.calibration, filename.experimental = NA) {
 	M.obs = nrow(data.exp)
 	ISEID.exp = data.exp$ISEID
 	xID.exp = data.exp$SampleID
-	if (stdadd == T) {
+	if (stdadd == TRUE) {
 		delta.emf = data.exp$emf2 - data.exp$emf1
 		V.s = data.exp$V.s
 		V.add = data.exp$V.add
 		conc.add = data.exp$conc.add
 	}
-	if (stdadd != T) {
+	if (stdadd != TRUE) {
 		emf.exp = data.exp$emf
 	}
 
 	### If there is only one ISE, format the data accordingly:
 	if(R == 1) {
-		if (stdadd == T) {
+		if (stdadd == TRUE) {
 			data.out = list(N=N, R=R, log10x = log10x, emf=emf,
 				M=M, delta.emf = delta.emf, 
 				V.s = V.s, V.add = V.add, conc.add = conc.add, 
 				stdadd = stdadd, calibration.only = calibration.only, 
 				data.calib = data.calib, data.exp = data.exp)
 		}
-		if (stdadd != T) {
+		if (stdadd != TRUE) {
 			data.out = list(N=N, R=R, log10x = log10x, emf=emf,
 				M=M, emf.exp = emf.exp, 
 				stdadd = stdadd, calibration.only = calibration.only, 
@@ -190,7 +190,7 @@ function(filename.calibration, filename.experimental = NA) {
 
 	### If multiple ISEs, format as follows:
 	if(R > 1) {
-		if (stdadd == T) {
+		if (stdadd == TRUE) {
 			data.out = list(N=N, R=R, ISEID=ISEID, log10x = log10x, emf=emf,
 				M=M, M.obs = M.obs, ISEID.exp = ISEID.exp,
 				xID.exp=xID.exp, delta.emf = delta.emf, 
@@ -198,7 +198,7 @@ function(filename.calibration, filename.experimental = NA) {
 				stdadd = stdadd, calibration.only = calibration.only, 
 				data.calib = data.calib, data.exp = data.exp)
 		}
-		if (stdadd != T) {
+		if (stdadd != TRUE) {
 			data.out = list(N=N, R=R, ISEID=ISEID, log10x = log10x, emf=emf,
 				M=M, M.obs = M.obs, ISEID.exp = ISEID.exp,
 				xID.exp=xID.exp, emf.exp = emf.exp, 

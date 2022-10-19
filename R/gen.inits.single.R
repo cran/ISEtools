@@ -1,5 +1,5 @@
 gen.inits.single = function(data, a.init=NA, b.init=NA, cstar.init=NA, 
-	logc.limits = c(-8.9, -1.9), sigma.upper=NA, stdadd = F, offset = 1, calibration.only = F) {
+	logc.limits = c(-8.9, -1.9), sigma.upper=NA, stdadd = FALSE, offset = 1, calibration.only = FALSE) {
 ###################################################################
 # 				Initial values                            #
 # 	generate initial values for describeISE and analyse         #
@@ -66,12 +66,11 @@ gen.inits.single = function(data, a.init=NA, b.init=NA, cstar.init=NA,
 		emf.tmp2 <- pmax(emf.tmp, mu0.3sig)
 		x.tmp <- 10^( (emf.tmp2 - a)/b ) - cstar^10
 	}
-	if (stdadd == T) {
+	if (stdadd == TRUE) {
 		delta.emf.tmp = data$delta.emf
 		V.add.tmp = data$V.add
 		conc.add.tmp = data$conc.add
 		V.s.tmp = data$V.s
-	#	x.tmp = (V.add.tmp*conc.add.tmp/V.s.tmp)/(10^(delta.emf.tmp/b))
 		x.tmp = pmax(10^logc.limits[1],
 			(V.add.tmp*conc.add.tmp/V.s.tmp)/(10^(delta.emf.tmp/b)))
 	}

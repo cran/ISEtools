@@ -1,4 +1,3 @@
-import(Xmisc)
 import(coda)
 import(graphics)
 import(stats)
