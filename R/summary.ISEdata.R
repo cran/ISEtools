@@ -10,9 +10,9 @@
 #' @return metadata: Metadata for the ISEs, a list with N, R, calibration.only, M, and stdadd
 #' @return \item{N}{Total number of calibration observations}
 #' @return \item{R}{Number of ISEs}
-#' @return \item{calibration.only}{Indicates calibration only data (T), or calibration and experimental data (F)}
+#' @return \item{calibration.only}{Indicates calibration only data (TRUE), or calibration and experimental data (FALSE)}
 #' @return \item{M}{Number of experimental samples (NA if no experimental data were loaded)}
-#' @return \item{stdadd}{Indicates whether standard addition used for experimental samples (T) or the basic model was used (F), or no experimental data (NA)}
+#' @return \item{stdadd}{Indicates whether standard addition used for experimental samples (TRUE) or the basic model was used (FALSE), or no experimental data (NA)}
 summary.ISEdata = function(object, ...) {
 ###
 # summarises ISE data

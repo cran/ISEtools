@@ -21,7 +21,7 @@ print.analyseISE = function(x, ...) {
 		cat("\nBayesian calibration of experimental samples:\n\n")
 		rownames(table2)= rep("", M)
 		colnames(table2) = tmp
-		print(table2, quote=F)
+		print(table2, quote=FALSE)
 	}
 	if (M == 1) {
 		tmp = c("Sample ID", names(ISEanalysis$log10x.exp))
@@ -30,6 +30,7 @@ print.analyseISE = function(x, ...) {
 		table2 = t(table2)
 		rownames(table2)= rep("", M)
 		colnames(table2) = tmp
-		print(table2, quote=F)
+		print(table2, quote=FALSE)
 	}
+	invisible(x)
 }

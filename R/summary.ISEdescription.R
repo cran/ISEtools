@@ -1,6 +1,6 @@
 #' @title Summarise ISE parameters
-#' @description summary.ISEdescription takes an object of class ISEddescription and prints a table of parameter values for
-#'   y = a + b log(x + c) + error, with the erros following a Normal distribution with mean 0 and standard deviation sigma.
+#' @description summary.ISEdescription takes an object of class ISEdescription and prints a table of parameter values for
+#'   y = a + b log(x + c) + error, with the errors following a Normal distribution with mean 0 and standard deviation sigma.
 #'   Also calculates LOD using the conditional analytic method (alpha, beta, or S/N).
 #' @param object object of class ISEdescription
 #' @param ... Other objects passed through.

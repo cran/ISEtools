@@ -68,10 +68,10 @@ describeISE(data, model.path=NA, model.name = NA, Z=NA, temperature = 21,
 	The initial value for the slope is based on the last data point as sorted by concentration (i.e. the Nth point) and the (N - offset) data point.  The default is offset = 1, corresponding to the last and second to last data points.
 }
   \item{alpha}{
-	False positive rate used for detection threshold (not output) to calculate LOD(alpha, beta) {only returned if SN = NA}
+	False positive rate used for detection threshold (not output) to calculate LOD(alpha, beta) (only returned if SN = NA)
 }
   \item{beta}{
-	False negative rate used to calculate LOD(alpha, beta) {only returned if SN = NA}
+	False negative rate used to calculate LOD(alpha, beta) (only returned if SN = NA)
 }
   \item{SN}{
 	Desired signal-to-noise ratio for LOD(S/N) calculations (default is to calculate the S/N equivalent based on alpha, beta)
@@ -123,20 +123,16 @@ Peter Dillingham, \email{peter.dillingham@otago.ac.nz}
 \examples{
 # Fast-running example with only 100 MCMC iterations for testing:
 data(carbonate)
-example3test = describeISE(carbonate, Z = -2, SN = 3.6, 
- burnin=100, iters=200, chains=1, 
- a.init= c(-50,180,140,65,100,170,100,130), 
- b.init=rep(-20,8), cstar.init=rep(0.2, 8), program="jags")
-print(example3test)
-summary(example3test)
-plot(example3test)
-\donttest{
-# Full example with 100,000 iterations (25,000 by 4 chains):
-data(carbonate)
-example3 = describeISE(carbonate, Z = -2, SN = 3.6)
-print(example3)
-summary(example3)
-plot(example3)
+if (requireNamespace("rjags", quietly = TRUE)) {
+  example3test = describeISE(carbonate, Z = -2, SN = 3.6, 
+   burnin=100, iters=200, chains=1, 
+   a.init= c(-50,180,140,65,100,170,100,130), 
+   b.init=rep(-20,8), cstar.init=rep(0.2, 8), program="jags")
+  print(example3test)
+  summary(example3test)
+  plot(example3test)
+} else {
+  message("Package 'rjags' is not installed, skipping JAGS example.")
 }
 }
 

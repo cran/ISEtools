@@ -76,24 +76,24 @@ gen.inits.single = function(data, a.init=NA, b.init=NA, cstar.init=NA,
 	}
 		
 	# Initial values are between 90% and 100% of the average estimate
-	x.exp = x.tmp*runif(1, 0.9, 1)
+	x.exp = x.tmp*stats::runif(1, 0.9, 1)
 	log10x.exp = log10(x.exp)
 	
 	INITS <- list(a=a, b=b, cstar=cstar, logsigma=logsigma)
 	init.stretch = 0.01
-	inits <- list(a=a*runif(1, 1 - init.stretch, 1 + init.stretch),
-				b=b*runif(1, 1 - init.stretch, 1 + init.stretch),
-				cstar=cstar*runif(1, 1 - init.stretch, 1 + init.stretch),
-				sigma=sigma*runif(1, 1 - init.stretch, 1 + init.stretch),
+	inits <- list(a=a*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				b=b*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				cstar=cstar*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				sigma=sigma*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
 				log10x.exp=log10x.exp)
    }
    if (calibration.only) {
 	INITS <- list(a=a, b=b, cstar=cstar, logsigma=logsigma)
 	init.stretch = 0.01
-	inits <- list(a=a*runif(1, 1 - init.stretch, 1 + init.stretch),
-				b=b*runif(1, 1 - init.stretch, 1 + init.stretch),
-				cstar=cstar*runif(1, 1 - init.stretch, 1 + init.stretch),
-				sigma=sigma*runif(1, 1 - init.stretch, 1 + init.stretch))
+	inits <- list(a=a*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				b=b*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				cstar=cstar*stats::runif(1, 1 - init.stretch, 1 + init.stretch),
+				sigma=sigma*stats::runif(1, 1 - init.stretch, 1 + init.stretch))
    }
 	return(inits)
 }

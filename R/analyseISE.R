@@ -198,7 +198,7 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
     colnames(log10x.exp.IQ)=c("1st quartile", "3rd quartile")
     for (i in 1:data$M) {
       tmp <- as.vector(ISE.Bayes$sims.array[,,i+5])
-      quantile.tmp <- quantile(tmp, c(0.025, 0.5, 0.975, 0.25, 0.75))
+      quantile.tmp <- stats::quantile(tmp, c(0.025, 0.5, 0.975, 0.25, 0.75))
       log10x.exp[i,] <- quantile.tmp[c(2,1,3)]
       log10x.exp.IQ[i,] <- quantile.tmp[c(4,5)]
     }
@@ -210,22 +210,22 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
     cstarhat.coda = as.vector(ISE.Bayes$sims.array[,,4])
     chat.coda = cstarhat.coda^10
     sigmahat.coda = as.vector(ISE.Bayes$sims.array[,,5])
-    ahat = median(ahat.coda)
-    bhat = median(bhat.coda)
-    cstarhat = median(cstarhat.coda)
+    ahat = stats::median(ahat.coda)
+    bhat = stats::median(bhat.coda)
+    cstarhat = stats::median(cstarhat.coda)
     chat = cstarhat^10
-    sigmahat = median(sigmahat.coda)
+    sigmahat = stats::median(sigmahat.coda)
     
-    ahat.lcl = quantile(ahat.coda, 0.025)
-    bhat.lcl = quantile(bhat.coda, 0.025)
-    cstarhat.lcl = quantile(cstarhat.coda, 0.025)
+    ahat.lcl = stats::quantile(ahat.coda, 0.025)
+    bhat.lcl = stats::quantile(bhat.coda, 0.025)
+    cstarhat.lcl = stats::quantile(cstarhat.coda, 0.025)
     chat.lcl = cstarhat.lcl^10
-    ahat.ucl = quantile(ahat.coda, 0.975)
-    bhat.ucl = quantile(bhat.coda, 0.975)
-    cstarhat.ucl = quantile(cstarhat.coda, 0.975)
+    ahat.ucl = stats::quantile(ahat.coda, 0.975)
+    bhat.ucl = stats::quantile(bhat.coda, 0.975)
+    cstarhat.ucl = stats::quantile(cstarhat.coda, 0.975)
     chat.ucl = cstarhat.ucl^10
-    sigmahat.lcl = quantile(sigmahat.coda, 0.025)
-    sigmahat.ucl = quantile(sigmahat.coda, 0.975)
+    sigmahat.lcl = stats::quantile(sigmahat.coda, 0.025)
+    sigmahat.ucl = stats::quantile(sigmahat.coda, 0.975)
     
     ###
     # Derived variables
@@ -233,18 +233,18 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
     if(is.na(SN)){
       if(is.na(alpha)) alpha = 0.05 # Reset to default if needed
       if(is.na(beta)) beta = 0.05
-      zscore = qnorm(alpha, lower.tail=FALSE) + qnorm(beta, lower.tail=FALSE)
+      zscore = stats::qnorm(alpha, lower.tail=FALSE) + stats::qnorm(beta, lower.tail=FALSE)
       LOD.info = list(type = "alpha, beta", alpha = alpha, beta = beta, SN = zscore)
     }else{
       zscore = SN
       LOD.info = list(type = "S/N", alpha = NA, beta = NA, SN = zscore)
     }
     LOD.coda = 10*log10(cstarhat.coda) + log10(10^(zscore*sigmahat.coda /abs( bhat.coda ) ) - 1)
-    LOD.hat = median(LOD.coda)
-    LOD.Q1 = quantile(LOD.coda, 0.25)
-    LOD.Q3 = quantile(LOD.coda, 0.75)
-    LOD.lcl = quantile(LOD.coda, 0.025)
-    LOD.ucl = quantile(LOD.coda, 0.975)
+    LOD.hat = stats::median(LOD.coda)
+    LOD.Q1 = stats::quantile(LOD.coda, 0.25)
+    LOD.Q3 = stats::quantile(LOD.coda, 0.75)
+    LOD.lcl = stats::quantile(LOD.coda, 0.025)
+    LOD.ucl = stats::quantile(LOD.coda, 0.975)
     
   }
   
@@ -256,7 +256,7 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
     colnames(log10x.exp.IQ)=c("1st quartile", "3rd quartile")
     for (i in 1:data$M) {
       tmp = as.vector(ISE.Bayes$sims.array[,,i+5*data$R])
-      quantile.tmp <- quantile(tmp, c(0.025, 0.5, 0.975, 0.25, 0.75))
+      quantile.tmp <- stats::quantile(tmp, c(0.025, 0.5, 0.975, 0.25, 0.75))
       log10x.exp[i,] <- quantile.tmp[c(2,1,3)]
       log10x.exp.IQ[i,] <- quantile.tmp[c(4,5)]
     }
@@ -290,7 +290,7 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
     if(is.na(SN)){
       if(is.na(alpha)) alpha = 0.05 # Reset to default if needed
       if(is.na(beta)) beta = 0.05
-      zscore = qnorm(alpha, lower.tail=FALSE) + qnorm(beta, lower.tail=FALSE)
+      zscore = stats::qnorm(alpha, lower.tail=FALSE) + stats::qnorm(beta, lower.tail=FALSE)
       LOD.info = list(type = "alpha, beta", alpha = alpha, beta = beta, SN = zscore)
     }else{
       zscore = SN
@@ -304,35 +304,35 @@ analyseISE = function(data, model.path=NA, model.name=NA, Z=NA, temperature = 21
       sigmahat.coda[,j] = as.vector(ISE.Bayes$sims.array[,,4*data$R + j])
       chat.coda[,j] = cstarhat.coda[,j]^10
       
-      ahat.q = quantile(ahat.coda[,j], c(0.025, 0.5, 0.975))
+      ahat.q = stats::quantile(ahat.coda[,j], c(0.025, 0.5, 0.975))
       ahat[j] = ahat.q[2]
       ahat.lcl[j] = ahat.q[1]
       ahat.ucl[j] = ahat.q[3]
-      bhat.q = quantile(bhat.coda[,j], c(0.025, 0.5, 0.975))
+      bhat.q = stats::quantile(bhat.coda[,j], c(0.025, 0.5, 0.975))
       bhat[j] = bhat.q[2]
       bhat.lcl[j] = bhat.q[1]
       bhat.ucl[j] = bhat.q[3]
-      chat.q = quantile(chat.coda[,j], c(0.025, 0.5, 0.975))
+      chat.q = stats::quantile(chat.coda[,j], c(0.025, 0.5, 0.975))
       chat[j] = chat.q[2]
       chat.lcl[j] = chat.q[1]
       chat.ucl[j] = chat.q[3]
-      cstarhat.q = quantile(cstarhat.coda[,j], c(0.025, 0.5, 0.975))
+      cstarhat.q = stats::quantile(cstarhat.coda[,j], c(0.025, 0.5, 0.975))
       cstarhat[j] = cstarhat.q[2]
       cstarhat.lcl[j] = cstarhat.q[1]
       cstarhat.ucl[j] = cstarhat.q[3]
-      sigmahat.q = quantile(sigmahat.coda[,j], c(0.025, 0.5, 0.975))
+      sigmahat.q = stats::quantile(sigmahat.coda[,j], c(0.025, 0.5, 0.975))
       sigmahat[j] = sigmahat.q[2]
       sigmahat.lcl[j] = sigmahat.q[1]
       sigmahat.ucl[j] = sigmahat.q[3]
       
       # Derived variable
       LOD.coda[,j] = 10*log10(cstarhat.coda[,j]) + log10(10^(zscore*sigmahat.coda[,j] /abs( bhat.coda[,j] ) ) - 1)
-      LOD.q = quantile(LOD.coda[,j], c(0.025, 0.25, 0.5, 0.75, 0.975))
+      LOD.q = stats::quantile(LOD.coda[,j], c(0.025, 0.25, 0.5, 0.75, 0.975))
       LOD.hat[j] = LOD.q[3]
       LOD.lcl[j] = LOD.q[1]
       LOD.ucl[j] = LOD.q[5]
       LOD.Q1[j] = LOD.q[2]
-      LOD.Q3[j] = LOD.q[3]
+      LOD.Q3[j] = LOD.q[4]
     }	
   }
   

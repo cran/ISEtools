@@ -55,7 +55,7 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
   	mu0.3sig <- mu0 + 3*sigma*sign(b)
   	LOD <- 10^( (mu0.3sig - a)/b ) - cstar^10
 
-   if (!calibration.only) {
+  if (!calibration.only) {
 	# Generate inital values for experimental data
 	# Values with ISEs below S/N=3 are set to E(ISE|x=0) + 3*sigma
 	x.exp = rep(NA, data$M)
@@ -70,7 +70,7 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 				cstar[ISEID.tmp]^10
 			# Initial values are between 90% and 100% of the average estimate
 			# but at least equal to the lower limit for log c
-			x.exp[i] = max(10^logc.limits[1], mean(x.tmp))*runif(1, 0.9, 1)
+			x.exp[i] = max(10^logc.limits[1], mean(x.tmp))*stats::runif(1, 0.9, 1)
 		}
 	}
 
@@ -83,7 +83,7 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 			V.s.tmp = data$V.s[data$xID.exp==i]
 			x.tmp = (V.add.tmp*conc.add.tmp/V.s.tmp)/(10^(delta.emf.tmp/b[ISEID.tmp]))
 			# Initial values are between 90% and 100% of the average estimate
-			x.exp[i] = mean(x.tmp)*runif(1, 0.9, 1)
+			x.exp[i] = mean(x.tmp)*stats::runif(1, 0.9, 1)
 		}
 	}
 
@@ -91,19 +91,19 @@ gen.inits.multiple <- function(data, a.init= NA, b.init= NA, cstar.init= NA, off
 
 	INITS <- list(a=a, b=b, cstar=cstar, logsigma=logsigma)
 	init.stretch = 0.01
-	inits <- list(a=a*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				b=b*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				cstar=cstar*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				sigma=sigma*runif(data$R, 1 - init.stretch, 1 + init.stretch),
+	inits <- list(a=a*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				b=b*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				cstar=cstar*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				sigma=sigma*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
 				log10x.exp=log10x.exp)
-   }
-   if (calibration.only) {
+  }
+  if (calibration.only) {
 	INITS <- list(a=a, b=b, cstar=cstar, logsigma=logsigma)
 	init.stretch = 0.01
-	inits <- list(a=a*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				b=b*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				cstar=cstar*runif(data$R, 1 - init.stretch, 1 + init.stretch),
-				sigma=sigma*runif(data$R, 1 - init.stretch, 1 + init.stretch))
+	inits <- list(a=a*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				b=b*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				cstar=cstar*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch),
+				sigma=sigma*stats::runif(data$R, 1 - init.stretch, 1 + init.stretch))
    }
 	return(inits)
 }

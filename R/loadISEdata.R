@@ -23,13 +23,13 @@
 #' @return \item{M }{Number of experimental samples}
 #' @return \item{M.obs }{Total number of experimental measurements. E.g. for 4 samples each measured by 3 ISEs, M.obs = 12. Only returned if R > 1}
 #' @return \item{ISEID.exp }{Identifier for the ISE for the experimental data (returned if R >1)}
-#' @return \item{x.exp }{Identifier for the experimental (returned if R > 1)}
+#' @return \item{xID.exp }{Identifier for the experimental (returned if R > 1)}
 
 #' @return Basic format only: \cr
 #' @return \item{emf.exp }{emf (mV) for experimental data}
 
 #' @return Standard addition format only:\cr
-#' @return \item{delta.emf }{difference between emf1 and emf2 (mV) for experimental data}
+#' @return \item{delta.emf }{difference between emf2 and emf1 (mV) for experimental data}
 #' @return \item{V.s }{Sample volume (any units allowed but must be consistent)}
 #' @return \item{V.add }{Volume added to the sample}
 #' @return \item{conc.add }{Concentration added.}
@@ -132,29 +132,64 @@ function(filename.calibration, filename.experimental = NA) {
 # 	conc.add: concentration of the addition (mol/l)
 ###
 
-   # calibration.only: a TRUE/FALSE flag indicating whether there is only a calibration file (calibration.only=TRUE)
-   #    or whether there is also a file with experimental sample data (calibration.only=F)
-   calibration.only = FALSE
-   if (is.na(filename.experimental)) { calibration.only = TRUE }
+ # calibration.only: a TRUE/FALSE flag indicating whether there is only a calibration file (calibration.only=TRUE)
+ #    or whether there is also a file with experimental sample data (calibration.only=F)
+ calibration.only = FALSE
 
-   if (!calibration.only) {
-	# Load the experimental and calibration files
-	data.exp = read.delim(filename.experimental,
-		header = TRUE, sep = "\t", quote="\"", dec=".", fill = TRUE, comment.char="")
+ if (is.na(filename.experimental)) { calibration.only = TRUE }
 
-	# Check whether the data is in standard addition format or not,
-	#    evidenced by the existence of the sample volume variable
-	stdadd = exists('V.s', where = data.exp)
-	
-	data.calib = read.delim(filename.calibration,
-		header = TRUE, sep = "\t", quote="\"", dec=".", fill = TRUE, comment.char="")
+ if (!calibration.only) {
+   # List of required column names for the calibration data and the two experimental data formats
+   req_calib = c("ISEID","log10x","emf")
+   req_exp_basic = c("ISEID","SampleID","emf")
+   req_exp_sa    = c("ISEID","SampleID","emf1","emf2","V.s","V.add","conc.add")
+  
+   # Load the calibration and experimental files
+   data.calib = utils::read.delim(filename.calibration, header=TRUE, sep="\t",
+                                  quote="\"", dec=".", fill=TRUE, comment.char="",
+                                  stringsAsFactors = FALSE, check.names = FALSE)
+   
+   data.exp = utils::read.delim(filename.experimental, header=TRUE, sep="\t",
+                               quote="\"", dec=".", fill=TRUE, comment.char="",
+                               stringsAsFactors = FALSE, check.names = FALSE)
+     
+   ## Check calibration file 
+   if (!all(req_calib %in% names(data.calib))) {
+     stop("Calibration file must contain columns: ", paste(req_calib, collapse=", "))
+   }
 
-	# Format data from the calibration file
-	N = nrow(data.calib)
-	R = max(data.calib$ISEID)
-	ISEID = data.calib$ISEID
-	log10x = data.calib$log10x
-	emf = data.calib$emf
+   # Confirm that ISE IDs were entered correctly (consecutive, starting at 1)
+   ise.tmp = data.calib$ISEID
+   if (!is.numeric(ise.tmp) || anyNA(ise.tmp) || any(ise.tmp %% 1 != 0)) stop("ISEID must be integer.")
+   if (!setequal(sort(unique(ise.tmp)), seq_len(max(ise.tmp)))) stop("ISEID must be consecutive starting at 1.")
+   
+   ### Format data from the calibration file
+   N = nrow(data.calib)
+   R = max(data.calib$ISEID)
+   ISEID = data.calib$ISEID
+   log10x = data.calib$log10x
+   emf = data.calib$emf
+
+   ## Check experimental file   
+   is_basic = all(req_exp_basic %in% names(data.exp))
+   is_sa    = all(req_exp_sa    %in% names(data.exp))
+     
+   if (!is_basic && !is_sa) {
+     stop("Experimental file must follow either basic format (", paste(req_exp_basic, collapse=", "),
+          ") or standard addition format (", paste(req_exp_sa, collapse=", "), ").")
+   }
+   stdadd = is_sa
+   
+   # Check experimental ISEID validity and consistency with calibration
+   iseE = data.exp$ISEID
+   if (!is.numeric(iseE) || anyNA(iseE) || any(iseE %% 1 != 0)) stop("Experimental ISEID must be integers.")
+   if (!setequal(sort(unique(iseE)), seq_len(max(iseE)))) stop("Experimental ISEID must be consecutive starting at 1.")
+   if (max(iseE) != R) stop("Experimental ISEID maximum does not match calibration (", R, ").")
+   
+   # Check SampleID validity
+   sid = data.exp$SampleID
+   if (!is.numeric(sid) || anyNA(sid) || any(sid %% 1 != 0)) stop("SampleID must be integers.")
+   if (!setequal(sort(unique(sid)), seq_len(max(sid)))) stop("SampleID must be consecutive starting at 1.")
 
 	# Format data from the experimental file
 	M = max(data.exp$SampleID)
@@ -206,11 +241,11 @@ function(filename.calibration, filename.experimental = NA) {
 				data.calib = data.calib, data.exp = data.exp)
 		}
 	}
-   }
-   if (calibration.only) {
-	data.out = ISEdata.calibration(filename.calibration = filename.calibration, calibration.only=calibration.only)
-   }
-   class(data.out) = "ISEdata"
-   return(data.out)   
+ }
 
+ if (calibration.only) {
+	data.out = ISEdata.calibration(filename.calibration = filename.calibration, calibration.only=calibration.only)
+ }
+ class(data.out) = "ISEdata"
+ return(data.out)   
 }

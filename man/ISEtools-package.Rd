@@ -12,9 +12,9 @@ Bayesian calibration for single or multiple ISEs using R and OpenBUGS (or JAGS).
 \tabular{ll}{
 Package: \tab ISEtools\cr
 Type: \tab Package\cr
-Version: \tab 3.2.0\cr
+Version: \tab 3.2.1\cr
 Depends: R (>4.1.0)\cr 
-Date: \tab 2022-10-14\cr
+Date: \tab 2025-12-22\cr
 License: \tab GPL-2\cr
 SystemRequirements: OpenBUGS (>3.0) or JAGS (>=4.3.1)\cr
 }
@@ -43,15 +43,4 @@ data(LeadStdAdd)
 print(LeadStdAdd)
 summary(LeadStdAdd)
 plot(LeadStdAdd)
-\donttest{
-example1 = describeISE(LeadStdAdd, Z =2, temperature=21)
-print(example1)
-summary(example1)
-plot(example1)
-example2 = analyseISE(LeadStdAdd, Z =2, temperature=21)
-print(example2)
-summary(example2)
-plot(example2, ylim = c(-7, -3), xlab = "ID (Sample)", 
-	ylab = expression(paste(log[10], " ", Pb^{paste("2","+",sep="")} )))
-}
 }

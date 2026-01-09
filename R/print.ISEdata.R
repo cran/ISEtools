@@ -10,16 +10,14 @@ print.ISEdata = function(x, ...) {
 ###
 # prints ISE calibration and (if loaded) sample experimental data
 ###
-	if (!x$calibration.only) {
-		print("Calibration data")
-		print(x$data.calib)
-		cat("\n")
-		print("Experimental data")
-		print(x$data.exp)
-	}
-	if (x$calibration.only) {
-		print("Calibration data")
-		print(x$data.calib)
-		cat("\n")
-	}
+  cat("Calibration data\n")
+  print(x$data.calib)
+  cat("\n")
+  
+  if (!isTRUE(x$calibration.only)) {
+    cat("Experimental data\n")
+    print(x$data.exp)
+    cat("\n")
+  }
+  invisible(x)
 }

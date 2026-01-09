@@ -1,7 +1,5 @@
 import(coda)
-import(graphics)
-import(stats)
-import(utils)
+importFrom(stats, update)
 export(loadISEdata)
 export(describeISE)
 export(analyseISE)

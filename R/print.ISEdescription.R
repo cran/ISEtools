@@ -24,14 +24,14 @@ print.ISEdescription = function(x, ...) {
 			c(ISEdescription$ahat.ucl[i], ISEdescription$bhat.ucl[i], ISEdescription$chat.ucl[i], ISEdescription$sigmahat.ucl[i])), nsmall=2, digits=3)
 		colnames(table1)= c("Parameter estimate", "Lower limit", "Upper limit")
 		rownames(table1)= c("a", "b", "c", "sigma")
-		print(table1, quote=F)
+		print(table1, quote=FALSE)
 		if(ISEdescription$LOD.info$type == "alpha, beta") {
 			cat("\nEstimated log LOD{alpha=", ISEdescription$LOD.info$alpha, ", beta=", ISEdescription$LOD.info$beta,"} (95% CI): ", 
 				format(ISEdescription$LOD.hat[i], digits=3), " (" , format(ISEdescription$LOD.lcl[i], digits=3), ", ", format(ISEdescription$LOD.ucl[i], digits=3), ")", "\n\n", sep="")
-		}
-		if(ISEdescription$LOD.info$type == "S/N") {
+		} else if(ISEdescription$LOD.info$type == "S/N") {
 			cat("\nEstimated log LOD{S/N=", ISEdescription$LOD.info$SN, "} (95% CI): ", 
 				format(ISEdescription$LOD.hat[i], digits=3), " (" , format(ISEdescription$LOD.lcl[i], digits=3), ", ", format(ISEdescription$LOD.ucl[i], digits=3), ")", "\n\n", sep="")
 		}
 	}
+	invisible(x)
 }

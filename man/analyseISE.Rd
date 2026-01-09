@@ -63,10 +63,10 @@ analyseISE(data, model.path=NA, model.name=NA, Z=NA, temperature = 21,
 	The initial value for the slope is based on the last data point as sorted by concentration (i.e. the Nth point) and the (N - offset) data point.  The default is offset = 1, corresponding to the last and second to last data points.
 }
   \item{alpha}{
-	False positive rate used for detection threshold (not output) to calculate LOD(alpha, beta) {only returned if SN = NA}
+	False positive rate used for detection threshold (not output) to calculate LOD(alpha, beta) (only returned if SN = NA)
 }
   \item{beta}{
-	False negative rate used to calculate LOD(alpha, beta) {only returned if SN = NA}
+	False negative rate used to calculate LOD(alpha, beta) (only returned if SN = NA)
 }
   \item{SN}{
 	Desired signal-to-noise ratio for LOD(S/N) calculations (default is to calculate the S/N equivalent based on alpha, beta)
@@ -107,20 +107,15 @@ Peter Dillingham, \email{peter.dillingham@otago.ac.nz}
 \examples{
 # Fast-running example with only 100 MCMC iterations for testing:
 data(LeadStdAdd)
-example2test = analyseISE(LeadStdAdd, Z = 2, temperature = 21, 
-  burnin=100, iters=200, chains=1, a.init=c(176, 146, -112), 
-  b.init=c(29, 30, 31), cstar.init=c(0.26, 0.27, 0.22), program="jags")
-print(example2test)
-summary(example2test)
-plot(example2test, ylim = c(-7, -3), xlab = "ID (Sample)", 
-     ylab = expression(paste(log[10], " ", Pb^{paste("2","+",sep="")} )))
-\donttest{
-# Full example with 100,000 iterations (25,000 by 4 chains):
-data(LeadStdAdd)
-example2 = analyseISE(LeadStdAdd, Z = 2, temperature = 21)
-print(example2)
-summary(example2)
-plot(example2, ylim = c(-7, -3), xlab = "ID (Sample)", 
-	ylab = expression(paste(log[10], " ", Pb^{paste("2","+",sep="")} )))
-}
+if (requireNamespace("rjags", quietly = TRUE)) {
+  example2test = analyseISE(LeadStdAdd, Z = 2, temperature = 21, 
+    burnin=100, iters=200, chains=1, a.init=c(176, 146, -112), 
+    b.init=c(29, 30, 31), cstar.init=c(0.26, 0.27, 0.22), program="jags")
+  print(example2test)
+  summary(example2test)
+  plot(example2test, ylim = c(-7, -3), xlab = "ID (Sample)", 
+    ylab = expression(paste(log[10], " ", Pb^{paste("2","+",sep="")} )))
+} else {
+  message("Package 'rjags' is not installed, skipping JAGS example.")
+}	 
 }

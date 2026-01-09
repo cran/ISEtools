@@ -7,7 +7,7 @@
 #' @param ylim Limits for the y-axis.
 #' @param x.ticks Location of tickmarks for the x-axis.  Automatically calculated if x.ticks = NA.
 #' @param y.ticks Location of tickmarks for the y-axis.  Automatically calculated if y.ticks = NA.
-#' @param x.ticks.label Labels associated with x-axis tickmarks for the x-axis. Automatically caluclated labels (TRUE), no labels (FALSE), or a column of text specifying custom labels (e.g. x.ticks.label = c("A", "B", "C") or similar, of the same length as x.ticks).
+#' @param x.ticks.label Labels associated with x-axis tickmarks for the x-axis. Automatically calculated labels (TRUE), no labels (FALSE), or a column of text specifying custom labels (e.g. x.ticks.label = c("A", "B", "C") or similar, of the same length as x.ticks).
 #' @param y.ticks.label Labels associated with y-axis tickmarks for the y-axis. See x.ticks.label for details.
 #' @param y.las Indicates whether y-axis labels be perpendicular to the y-axis (2) or parallel to it (0).
 #' @param col Colour for the field of the plot.
@@ -55,59 +55,59 @@ plot.analyseISE  = function(x, xlab = "Sample ID", ylab = expression(paste(log[1
 
 	if (M > 1) {
 		if (is.na(xlim[1])) { xlim = c(min(ISEanalysis$SampleID), max(ISEanalysis$SampleID)) }
-		plot(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[1,2], ISEanalysis$log10x.exp[1,3]), type="l", axes=F,
+		graphics::plot(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[1,2], ISEanalysis$log10x.exp[1,3]), type="l", axes=FALSE,
 			xlim = xlim, ylim = ylim, lend = 1, 
 			xlab = xlab, ylab = ylab, col = col, xaxs = xaxs, yaxs = yaxs, ...
 		)
-		if(add.box) box()
+		if(add.box) graphics::box()
 		if(!is.na(x.ticks[1])) {
-			axis(1, at = x.ticks, cex.axis= 0.8, labels = x.ticks.label)
+			graphics::axis(1, at = x.ticks, cex.axis= 0.8, labels = x.ticks.label)
 		}
 		if(is.na(x.ticks[1])) {
-			axis(1, at = ISEanalysis$SampleID, cex.axis = 0.8, labels = x.ticks.label)
+			graphics::axis(1, at = ISEanalysis$SampleID, cex.axis = 0.8, labels = x.ticks.label)
 		}
 		if(is.na(y.ticks[1])) {
-			axis(2, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
+			graphics::axis(2, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
 		}
 		if(!is.na(y.ticks[1])) {
-			axis(2, at = y.ticks, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
+			graphics::axis(2, at = y.ticks, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
 		}	
 
 		for (i in 1:M) {
-			lines(rep(ISEanalysis$SampleID[i] + x.shift,2), c(ISEanalysis$log10x.exp[i,2], ISEanalysis$log10x.exp[i,3]), col=col, ...)
-			lines(c(S.llow[i], S.lhigh[i]), rep(ISEanalysis$log10x.exp[i,2], 2) ,  col=col, ...)
-			lines(c(S.llow[i], S.lhigh[i]), rep(ISEanalysis$log10x.exp[i,3], 2), col=col, ...)
-			lines(c(S.low[i], S.high[i]), rep(ISEanalysis$log10x.exp[i,1], 2), lwd=1, col=col, ...)
-			lines(rep(ISEanalysis$SampleID[i] + x.shift,2), ISEanalysis$log10x.exp.IQ[i,], lwd=3, lend = 1, col=col, ...)
+			graphics::lines(rep(ISEanalysis$SampleID[i] + x.shift,2), c(ISEanalysis$log10x.exp[i,2], ISEanalysis$log10x.exp[i,3]), col=col, ...)
+			graphics::lines(c(S.llow[i], S.lhigh[i]), rep(ISEanalysis$log10x.exp[i,2], 2) ,  col=col, ...)
+			graphics::lines(c(S.llow[i], S.lhigh[i]), rep(ISEanalysis$log10x.exp[i,3], 2), col=col, ...)
+			graphics::lines(c(S.low[i], S.high[i]), rep(ISEanalysis$log10x.exp[i,1], 2), lwd=1, col=col, ...)
+			graphics::lines(rep(ISEanalysis$SampleID[i] + x.shift,2), ISEanalysis$log10x.exp.IQ[i,], lwd=3, lend = 1, col=col, ...)
 		}
 	}
 
 	if (M == 1) {
 		if (is.na(xlim[1])) { xlim = c(0.8, 1.2) }
-		plot(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[2], ISEanalysis$log10x.exp[3]), type="l", axes=F,
+		graphics::plot(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[2], ISEanalysis$log10x.exp[3]), type="l", axes=FALSE,
 			xlim = xlim, ylim = ylim, lend = 1, 
 			xlab = xlab, ylab = ylab, col = col, ...
 		)
-		if(add.box) box()
+		if(add.box) graphics::box()
 		if(!is.na(x.ticks[1])) {
-			axis(1, at = x.ticks, cex.axis= 0.8, labels = x.ticks.label)
+			graphics::axis(1, at = x.ticks, cex.axis= 0.8, labels = x.ticks.label)
 		}
 		if(is.na(x.ticks[1])) {
-			axis(1, at = ISEanalysis$SampleID, cex.axis = 0.8, labels = x.ticks.label)
+			graphics::axis(1, at = ISEanalysis$SampleID, cex.axis = 0.8, labels = x.ticks.label)
 		}
 		if(is.na(y.ticks[1])) {
-			axis(2, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
+			graphics::axis(2, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
 		}
 		if(!is.na(y.ticks[1])) {
-			axis(2, at = y.ticks, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
+			graphics::axis(2, at = y.ticks, cex.axis= 0.8, las=y.las, labels = y.ticks.label)
 		}
 
-		lines(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[2], ISEanalysis$log10x.exp[3]), col=col, ...)
-		lines(c(S.llow, S.lhigh), rep(ISEanalysis$log10x.exp[2], 2) ,  col=col, ...)
-		lines(c(S.llow, S.lhigh), rep(ISEanalysis$log10x.exp[3], 2), col=col, ...)
-		lines(c(S.low, S.high), rep(ISEanalysis$log10x.exp[1], 2), lwd=1, col=col, ...)
-		lines(rep(ISEanalysis$SampleID[1] + x.shift,2), ISEanalysis$log10x.exp.IQ, lwd=3, lend = 1, col=col, ...)
+		graphics::lines(rep(ISEanalysis$SampleID[1] + x.shift,2), c(ISEanalysis$log10x.exp[2], ISEanalysis$log10x.exp[3]), col=col, ...)
+		graphics::lines(c(S.llow, S.lhigh), rep(ISEanalysis$log10x.exp[2], 2) ,  col=col, ...)
+		graphics::lines(c(S.llow, S.lhigh), rep(ISEanalysis$log10x.exp[3], 2), col=col, ...)
+		graphics::lines(c(S.low, S.high), rep(ISEanalysis$log10x.exp[1], 2), lwd=1, col=col, ...)
+		graphics::lines(rep(ISEanalysis$SampleID[1] + x.shift,2), ISEanalysis$log10x.exp.IQ, lwd=3, lend = 1, col=col, ...)
 
 	}
-
+  invisible(x)
 }

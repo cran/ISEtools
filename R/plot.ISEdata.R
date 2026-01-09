@@ -17,8 +17,9 @@ plot.ISEdata = function(x, xlab=expression(paste(log[10], " { ", italic(x), " }"
 	# Plot the calibration data
 	ISEID = x$data.calib$ISEID
 	for (i in 1:x$R) {
-		main=paste("ISE #", i, sep="")
-		plot(x = x$log10x[ISEID==i], y = x$emf[ISEID==i], 
+		main=paste0("ISE #", i)
+		graphics::plot(x = x$data.calib$log10x[ISEID==i], y = x$data.calib$emf[ISEID==i], 
 			xlab = xlab, ylab = ylab, main = main, pch = pch, ...)
 	}
+	invisible(x)
 }
